@@ -1,3 +1,7 @@
 .Nav .NavItem a {
   color: tomato;
+  text-decoration: none;
+}
+.Nav ul {
+  list-style-type: none;
 }
