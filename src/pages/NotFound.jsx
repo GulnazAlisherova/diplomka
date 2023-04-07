@@ -11,12 +11,10 @@ export default function Category() {
     { id: 4, name: "Fruity", slug: "fruity" },
   ];
 
-  const category = categories.find(
-    (category) => category.slug === params.slug
-  );
+  const category = categories.find((category) => category.slug === params.slug);
 
   if (!category) {
-    return <NotFound />
+    return <NotFound />;
   }
 
   return (
