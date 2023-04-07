@@ -8,11 +8,9 @@ export default function CategoryList() {
     { id: 4, name: "Fruity", slug: "fruity" },
   ];
 
-  const output = categories.map(category => (
+  const output = categories.map((category) => (
     <li>
-      <NavLink to={`/categories/${category.slug}`}>
-        {category.name}
-      </NavLink>
+      <NavLink to={`/categories/${category.slug}`}>{category.name}</NavLink>
     </li>
   ));
 
