@@ -1,7 +1,10 @@
 .Nav .NavItem a {
-  color: tomato;
+  color: black;
   text-decoration: none;
+  font-weight: 600;
+
 }
 .Nav ul {
   list-style-type: none;
+  display: flex;
 }
