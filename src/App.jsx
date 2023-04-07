@@ -1,10 +1,11 @@
-import { useState } from "react";
-import "./App.css";
-
-function App() {
-  const [count, setCount] = useState(0);
-
-  return <div className="App"></div>;
+export default function App(){
+  return(
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>}/>
+        <Route path="/contacts" element={<Contacts/>}/>
+      </Routes>
+    </div>
+  )
 }
-
-export default App;
