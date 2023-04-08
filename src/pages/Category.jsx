@@ -5,10 +5,9 @@ export default function Category() {
   const { params } = useMatch("/categories/:slug");
 
   const categories = [
-    { id: 1, name: "In containers", slug: "in-containers" },
-    { id: 2, name: "In cones", slug: "in-cones" },
-    { id: 3, name: "Classic", slug: "classic" },
-    { id: 4, name: "Fruity", slug: "fruity" },
+    { id: 1, name: "Juices", slug: "juices" },
+    { id: 2, name: "Bottles", slug: "bottles" },
+    { id: 3, name: "Store", slug: "store" },
   ];
 
   const category = categories.find((category) => category.slug === params.slug);
