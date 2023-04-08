@@ -2,10 +2,9 @@ import { NavLink } from "react-router-dom";
 
 export default function CategoryList() {
   const categories = [
-    { id: 1, name: "In containers", slug: "in-containers" },
-    { id: 2, name: "In cones", slug: "in-cones" },
-    { id: 3, name: "Classic", slug: "classic" },
-    { id: 4, name: "Fruity", slug: "fruity" },
+    { id: 1, name: "Juices", slug: "juices" },
+    { id: 2, name: "Bottles", slug: "bottles" },
+    { id: 3, name: "Store", slug: "store" },
   ];
 
   const output = categories.map((category) => (
