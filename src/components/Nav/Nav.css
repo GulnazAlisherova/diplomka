@@ -22,7 +22,7 @@
 .NavItem a:hover:after {
   width: 100%;
 }
-.NavItem a:hover:before { 
+.NavItem a:hover:before {
   width: 100%;
 }
 .NavItem a:after {
