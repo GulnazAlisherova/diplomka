@@ -10,8 +10,10 @@ const firebaseConfig = {
   projectId: "elet-company",
   storageBucket: "elet-company.appspot.com",
   messagingSenderId: "862703181912",
-  appId: "1:862703181912:web:51e630f1668a59ccc36a2d"
+  appId: "1:862703181912:web:51e630f1668a59ccc36a2d",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+export const categories = collection(db, 'categories');
