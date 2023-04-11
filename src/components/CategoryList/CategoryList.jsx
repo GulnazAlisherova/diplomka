@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import "../CategoryList/CategoryList.css";
 
 export default function CategoryList() {
   const categories = [
@@ -14,7 +15,7 @@ export default function CategoryList() {
   ));
 
   return (
-    <div className="CategoryList">
+    <div className={CategoryList}>
       <h3>Categories</h3>
       <ul>{output}</ul>
     </div>
