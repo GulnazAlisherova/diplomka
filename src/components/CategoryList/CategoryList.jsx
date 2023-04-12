@@ -1,40 +1,35 @@
+import { getDocs } from "firebase/firestore/lite";
 import { NavLink } from "react-router-dom";
-import "./CategoryList.css";
+import { categories } from "../../firebase";
 import { useEffect, useState } from "react";
-import { getDocs } from "firebase/firestore";
-import { categoryCollection } from "../../firebase";
 
 export default function CategoryList() {
-  const [categories, setCategories] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
 
-  //выполнить эту функциу один раз
+  // получить документы из списка категорий в Firebase.
   useEffect(() => {
-    //получить категроии из списка категорий
-    getDocs(categoryCollection).then((snapshot) => {
-      //категории будут храниться в snapshot.docs
-      //слздать массив для категорий
-      const newCategories = [];
-      //заполнить массив данными из списка категорий
+    getDocs(categories).then((snapshot) => {
+      const newCategoryList = [];
       snapshot.docs.forEach((doc) => {
-        // doc это категория
-        const category = doc.data();
+        const category = doc.data(); // { name: "...", slug: "..." }
         category.id = doc.id;
 
-        newCategories.push(category);
+        newCategoryList.push(category);
       });
-      //задать новый массив как состояние компонента
-      setCategories(newCategories);
+
+      setCategoryList(newCategoryList);
     });
   }, []);
 
-  const output = categories.map((category) => (
+  const output = categoryList.map((category) => (
     <li key={category.id}>
-      <NavLink to={"/category/" + category.path}>{category.name}</NavLink>
+      <NavLink to={`/categories/${category.slug}`}>{category.name}</NavLink>
     </li>
   ));
 
   return (
     <div className="CategoryList">
+      <h3>Categories</h3>
       <ul>{output}</ul>
     </div>
   );
