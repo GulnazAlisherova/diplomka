@@ -6,8 +6,32 @@ import NotFound from "./pages/NotFound";
 import Contacts from "./pages/Contacts";
 import Delivery from "./pages/Delivery";
 import About from "./pages/About";
+import { createContext, useEffect } from "react";
+import { getDocs } from "firebase/firestore/lite";
+import { categoryCollection } from "./firebase";
 
+export const AppContext = createContext({
+  categories: [],
+});
 function App() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // выполнить только однажды
+    getDocs(categoryCollection) // получить категории
+      .then(({ docs }) => {
+        // когда категории загрузились
+        setCategories(
+          // обновить состояние
+          docs.map((doc) => ({
+            // новый массив
+            ...doc.data(), // из свойств name, slug
+            id: doc.id, // и свойства id
+          }))
+        );
+      });
+  }, []);
+
   return (
     <div className="App">
       <Layout>
