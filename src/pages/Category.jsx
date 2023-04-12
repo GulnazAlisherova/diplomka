@@ -7,7 +7,6 @@ export default function Category() {
   const categories = [
     { id: 1, name: "Juices", slug: "juices" },
     { id: 2, name: "Bottles", slug: "bottles" },
-    { id: 3, name: "Store", slug: "store" },
   ];
 
   const category = categories.find((category) => category.slug === params.slug);
