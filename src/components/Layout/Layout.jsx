@@ -1,4 +1,3 @@
-import Footer from "../Footer/Footer";
 import CategoryList from "../CategoryList/CategoryList";
 import Logo from "../Logo/Logo";
 import Nav from "../Nav/Nav";
@@ -18,7 +17,7 @@ export default function Layout(props) {
       </aside>
 
       <footer>
-        <Footer />
+       Footer
       </footer>
     </div>
   );
