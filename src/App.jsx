@@ -6,13 +6,13 @@ import NotFound from "./pages/NotFound";
 import Contacts from "./pages/Contacts";
 import Delivery from "./pages/Delivery";
 import About from "./pages/About";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore/lite";
 import { categoryCollection } from "./firebase";
-
 export const AppContext = createContext({
   categories: [],
 });
+
 function App() {
   const [categories, setCategories] = useState([]);
 
@@ -34,16 +34,18 @@ function App() {
 
   return (
     <div className="App">
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/delivery" element={<Delivery />} />
-          <Route path="/categories/:slug" element={<Category />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
+      <AppContext.Provider value={{ categories }}>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/delivery" element={<Delivery />} />
+            <Route path="/categories/:slug" element={<Category />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </AppContext.Provider>
     </div>
   );
 }
