@@ -10,12 +10,10 @@ export default function Category() {
   const { categories } = useContext(AppContext);
 
   // найти категорию которая имеет params.slug
-  const category = categories.find(
-    (category) => category.slug === params.slug
-  );
+  const category = categories.find((category) => category.slug === params.slug);
 
   if (!category) {
-    return <NotFound />
+    return <NotFound />;
   }
 
   return (

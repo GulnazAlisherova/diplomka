@@ -16,9 +16,7 @@ export default function Layout(props) {
         <CategoryList />
       </aside>
 
-      <footer>
-       Footer
-      </footer>
+      <footer>Footer</footer>
     </div>
   );
 }
