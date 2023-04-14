@@ -19,6 +19,6 @@ const app = initializeApp(firebaseConfig);
 // Инициализация базы данных
 const db = getFirestore(app);
 
-// получить список категорий (коллекция документов).
+// Получение списка категорий (коллекции документов)
 export const categoryCollection = collection(db, 'categories');
-export const productCollection = collection(db, 'products');
+export const productsCollection = collection(db, 'products');
