@@ -9,6 +9,7 @@ import About from "./pages/About";
 import { createContext, useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore/lite";
 import { categoryCollection, productsCollection } from "./firebase";
+import Product from "./pages/Product";
 
 // Создать контекст, который будет хранить данные.
 export const AppContext = createContext({
@@ -16,7 +17,7 @@ export const AppContext = createContext({
   products: [],
 });
 
-export default function App() {
+function App() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
 
@@ -66,3 +67,6 @@ export default function App() {
     </div>
   );
 }
+
+
+export default App;
