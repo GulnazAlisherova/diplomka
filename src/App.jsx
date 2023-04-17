@@ -60,6 +60,7 @@ function App() {
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/delivery" element={<Delivery />} />
             <Route path="/categories/:slug" element={<Category />} />
+            <Route path="/products/:slug" element={<Product />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
