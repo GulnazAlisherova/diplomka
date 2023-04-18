@@ -52,7 +52,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppContext.Provider value={{ categories, products }}>
+      <AppContext.Provider value={{ categories, products, cart, setCart }}>
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
