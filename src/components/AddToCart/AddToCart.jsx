@@ -5,18 +5,17 @@ import { AppContext } from "../../App";
 export default function AddToCart({ product }) {
   const { cart, setCart } = useContext(AppContext);
 
-  function onAddToCartClick() {
-    const qty = cart[product.id] ? cart[product.id] + 1 : 1;
+  const currentCount = cart[product.id] ? cart[product.id] : 0;
+  function onAddToCart() {
     setCart({
-      ...cart, // положить текущее содержание корзинки
-      [product.id]: qty, // добавить текущий товар
+      ...cart,
+      [product.id]: currentCount + 1,
     });
   }
 
   return (
     <div className="AddToCart">
-      {cart[product.id] ? cart[product.id] : 0}
-      <button onClick={onAddToCartClick}>Add to cart</button>
+      <button onClick={onAddToCart}>Add to cart ({currentCount})</button>
     </div>
   );
 }
