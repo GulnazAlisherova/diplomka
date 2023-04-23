@@ -5,10 +5,10 @@ import NotFound from "./NotFound";
 import AddToCart from "../components/AddToCart/AddToCart";
 
 export default function Product() {
-  const { params } = useMatch("/product/:path");
+  const { params } = useMatch("/product/:slug");
   const { products } = useContext(AppContext);
 
-  const product = products.find((product) => product.path === params.path);
+  const product = products.find((product) => product.slug === params.slug);
 
   if (!product) {
     return <NotFound />;
