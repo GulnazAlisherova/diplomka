@@ -6,18 +6,18 @@ import NotFound from "./NotFound";
 
 export default function Category() {
   // деструктизацтия
-  const { params } = useMatch("/category/:path");
+  const { params } = useMatch("/category/:slug");
   const { categories } = useContext(AppContext);
   // простой метод
-  // const match = useMatch("/category/:path");
-  // match.params.path;
+  // const match = useMatch("/category/:slug");
+  // match.params.slug;
 
   // найти категорию где путь категории совпадает с путем в браузере
   const category = categories.find(
-    (category) => params.path === category.path
+    (category) => params.slug === category.slug
     /*
     function(category) {
-      if (params.path === category.path) {
+      if (params.slug === category.slug) {
         return true;
       }
       else {
