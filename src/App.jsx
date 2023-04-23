@@ -8,47 +8,86 @@ import Delivery from "./pages/Delivery";
 import About from "./pages/About";
 import { createContext, useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore/lite";
-import { categoryCollection, productsCollection } from "./firebase";
+import { categoryCollection, productCollection } from "./firebase";
 import Product from "./pages/Product";
+import ThankYou from "./pages/ThankYou";
+import Cart from "./pages/Cart";
 
-// Создать контекст, который будет хранить данные.
+
 export const AppContext = createContext({
   categories: [],
   products: [],
+
+  // корзина
+  cart: {},
+  setCart: () => {},
+
+  user: null, // здесь будет храниться информация про пользователя
 });
 
-function App() {
+export default function App() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    // выполнить только однажды
-    getDocs(categoryCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setCategories(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
-      });
+  // состояние которое хранит информацию пользователя
+  const [user, setUser] = useState(null);
 
-    getDocs(productsCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setProducts(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
+  // корзина
+  const [cart, setCart] = useState(() => {
+    // восстановить содержимое корзинки из памяти браузера.
+    return JSON.parse(localStorage.getItem("cart")) || {};
+  });
+
+  // выполнить эту функцию только когда содержимое корзинки меняется
+  useEffect(() => {
+    // сохранить содержимое корзинки в памяти браузера
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  // выполнить эту функцию только один раз
+  useEffect(() => {
+    // получить категории из списка категорий
+    getDocs(categoryCollection).then((snapshot) => {
+      // категории будут храниться в snapshot.docs
+
+      // создать массив для категорий
+      const newCategories = [];
+      // заполнить массив данными из списка категорий
+      snapshot.docs.forEach((doc) => {
+        // doc = категория
+        const category = doc.data();
+        category.id = doc.id;
+
+        newCategories.push(category);
       });
+      // задать новый массив как состояние комапо
+      setCategories(newCategories);
+    });
+
+    // получить продукты из списка продуктов
+    getDocs(productCollection).then((snapshot) => {
+      // продукты будут храниться в snapshot.docs
+
+      // создать массив для продуктов
+      const newProducts = [];
+      // заполнить массив данными из списка продвук
+      snapshot.docs.forEach((doc) => {
+        // doc = продукт
+        const product = doc.data();
+        product.id = doc.id;
+
+        newProducts.push(product);
+      });
+      // задать новый массив как состояние комапо
+      setProducts(newProducts);
+    });
+
+    onAuthChange(user => {
+      setUser(user);
+    });
   }, []);
+
+
 
   return (
     <div className="App">
@@ -59,8 +98,11 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/delivery" element={<Delivery />} />
-            <Route path="/categories/:slug" element={<Category />} />
-            <Route path="/products/:slug" element={<Product />} />
+            <Route path="/category/:slug" element={<Category />} />
+            <Route path="/product/:slug" element={<Product />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
@@ -69,5 +111,3 @@ function App() {
   );
 }
 
-
-export default App;
