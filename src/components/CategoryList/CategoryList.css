@@ -1,0 +1,12 @@
+.CategoryList ul {
+  display: flex;
+}
+.CategoryList li {
+  list-style-type: none;
+  display: flex;
+}
+.CategoryList a{
+  text-decoration: none;
+  margin: 1rem;
+  color: black;
+}
