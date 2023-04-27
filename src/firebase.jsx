@@ -1,7 +1,14 @@
 // Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
-import { collection, getFirestore } from "firebase/firestore";
-import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { getFirestore, collection } from 'firebase/firestore/lite';
+import {
+  GoogleAuthProvider,
+  getAuth,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,19 +17,19 @@ const firebaseConfig = {
   projectId: "elet-company",
   storageBucket: "elet-company.appspot.com",
   messagingSenderId: "862703181912",
-  appId: "1:862703181912:web:51e630f1668a59ccc36a2d"
+  appId: "1:862703181912:web:51e630f1668a59ccc36a2d",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);  
+// Инициализация приложения
+const app = initializeApp(firebaseConfig);
 // Инициализация базы данных
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// получить список категорий (коллекция документов).
-export const categoryCollection = collection(db, 'categories');
-export const productCollection = collection(db, 'products');
-export const orderCollection = collection(db, 'orders');
+// Получение списка категорий (коллекции документов)
+export const categoryCollection = collection(db, "categories");
+export const productsCollection = collection(db, "products");
+export const ordersCollection = collection(db, "orders");
 
 const provider = new GoogleAuthProvider();
 export const logIn = () => signInWithPopup(auth, provider);
