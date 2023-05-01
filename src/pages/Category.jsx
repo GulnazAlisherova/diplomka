@@ -1,39 +1,26 @@
-import { useContext } from "react";
 import { useMatch } from "react-router-dom";
+import NotFound from "./NotFound";
+import { useContext } from "react";
 import { AppContext } from "../App";
 import ProductList from "../components/ProductList/ProductList";
-import NotFound from "./NotFound";
 
 export default function Category() {
-  // деструктизацтия
-  const { params } = useMatch("/category/:slug");
+  const { params } = useMatch("/categories/:slug");
+  // получить список категорий из App
   const { categories } = useContext(AppContext);
-  // простой метод
-  // const match = useMatch("/category/:slug");
-  // match.params.slug;
 
-  // найти категорию где путь категории совпадает с путем в браузере
+  // найти категорию которая имеет params.slug
   const category = categories.find(
-    (category) => params.slug === category.slug
-    /*
-    function(category) {
-      if (params.slug === category.slug) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-    */
+    (category) => category.slug === params.slug
   );
 
   if (!category) {
-    return <NotFound />;
+    return <NotFound />
   }
 
   return (
     <div className="Category">
-      <h1>{category ? category.name : "Loading..."}</h1>
+      <h1>{category.name}</h1>
       <ProductList category={category} />
     </div>
   );
