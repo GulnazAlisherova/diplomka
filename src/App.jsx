@@ -7,13 +7,7 @@ import About from "./pages/About";
 import Category from "./pages/Category";
 import NotFound from "./pages/NotFound";
 import { createContext, useEffect, useState } from "react";
-import { getDocs } from "firebase/firestore/lite";
-import {
-  categoryCollection,
-  onAuthChange,
-  ordersCollection,
-  productsCollection,
-} from "./firebase";
+import { onAuthChange, onCategoriesLoad, onOrdersLoad, onProductsLoad } from "./firebase";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import ThankYou from "./pages/ThankYou";
@@ -25,14 +19,14 @@ export const AppContext = createContext({
   products: [],
   orders: [],
 
-  // контекст для корзины
-  cart: {}, // содержимое корзинки
-  setCart: () => {}, // изменить содержимое корзики
+  // корзина
+  cart: {},
+  setCart: () => {},
 
-  user: null,
+  user: null, // здесь будет храниться информация про пользователя
 });
 
-function App() {
+export default function App() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -48,47 +42,14 @@ function App() {
   }, [cart]);
 
   useEffect(() => {
-    // выполнить только однажды
-    getDocs(categoryCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setCategories(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
-      });
-
-    getDocs(productsCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setProducts(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
-      });
-
-    getDocs(ordersCollection) // получить категории
-      .then(({ docs }) => {
-        // когда категории загрузились
-        setOrders(
-          // обновить состояние
-          docs.map((doc) => ({
-            // новый массив
-            ...doc.data(), // из свойств name, slug
-            id: doc.id, // и свойства id
-          }))
-        );
-      });
+    onCategoriesLoad(setCategories);
+    onProductsLoad(setProducts);
+    onOrdersLoad(setOrders);
 
     onAuthChange((user) => {
+      if (user) {
+        user.isAdmin = user.email === "alisherovagulnaz268@gmail.com";
+      }
       setUser(user);
     });
   }, []);
@@ -117,4 +78,3 @@ function App() {
     </div>
   );
 }
-export default App;
