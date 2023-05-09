@@ -7,7 +7,12 @@ import About from "./pages/About";
 import Category from "./pages/Category";
 import NotFound from "./pages/NotFound";
 import { createContext, useEffect, useState } from "react";
-import { onAuthChange, onCategoriesLoad, onOrdersLoad, onProductsLoad } from "./firebase";
+import {
+  onAuthChange,
+  onCategoriesLoad,
+  onOrdersLoad,
+  onProductsLoad,
+} from "./firebase";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import ThankYou from "./pages/ThankYou";
@@ -53,7 +58,7 @@ export default function App() {
       setUser(user);
     });
   }, []);
-  
+
   return (
     <div className="App">
       <AppContext.Provider
