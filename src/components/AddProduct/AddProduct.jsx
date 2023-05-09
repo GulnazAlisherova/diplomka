@@ -12,7 +12,7 @@ export default function AddProduct() {
     const data = new FormData(event.target);
 
     event.preventDefault();
-    console.log(data.get('picture'));
+    console.log(data);
   }
 
   return (
@@ -23,7 +23,7 @@ export default function AddProduct() {
           Name: <input type="text" name="name" required />
         </label>
         <label>
-          Price: <input type="number" name="price" min={0} required /> 
+          Price: <input type="number" name="price" min={0} required />
         </label>
         <label>
           Picture: <input type="file" name="picture" required />

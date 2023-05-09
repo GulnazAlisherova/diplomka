@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 import {
   GoogleAuthProvider,
   getAuth,
@@ -22,15 +22,15 @@ const firebaseConfig = {
 };
 
 // Инициализация приложения
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// Инициализация базы данных
 export const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Получение списка категорий (коллекции документов)
+// получить список категорий (коллекция документов).
 export const categoryCollection = collection(db, "categories");
-export const productsCollection = collection(db, "products");
-export const ordersCollection = collection(db, "orders");
+export const productCollection = collection(db, "products");
+export const orderCollection = collection(db, "orders");
 
 const provider = new GoogleAuthProvider();
 export const logIn = () => signInWithPopup(auth, provider);
@@ -47,7 +47,7 @@ export const onCategoriesLoad = (callback) =>
     )
   );
 export const onProductsLoad = (callback) =>
-  onSnapshot(productsCollection, (snapshot) =>
+  onSnapshot(productCollection, (snapshot) =>
     callback(
       snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -56,7 +56,7 @@ export const onProductsLoad = (callback) =>
     )
   );
 export const onOrdersLoad = (callback) =>
-  onSnapshot(ordersCollection, (snapshot) =>
+  onSnapshot(orderCollection, (snapshot) =>
     callback(
       snapshot.docs.map((doc) => ({
         id: doc.id,
