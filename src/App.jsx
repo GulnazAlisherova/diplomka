@@ -1,17 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
-import Contacts from "./pages/Contacts";
-import Delivery from "./pages/Delivery";
-import About from "./pages/About";
 import Category from "./pages/Category";
 import NotFound from "./pages/NotFound";
 import { createContext, useEffect, useState } from "react";
+import { getDocs } from "firebase/firestore";
 import {
   onAuthChange,
   onCategoriesLoad,
   onOrdersLoad,
   onProductsLoad,
+  ordersCollection,
+  productsCollection,
 } from "./firebase";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
@@ -24,14 +24,14 @@ export const AppContext = createContext({
   products: [],
   orders: [],
 
-  // корзина
-  cart: {},
-  setCart: () => {},
+  // контекст для корзины
+  cart: {}, // содержимое корзинки
+  setCart: () => {}, // изменить содержимое корзики
 
-  user: null, // здесь будет храниться информация про пользователя
+  user: null,
 });
 
-export default function App() {
+function App() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -53,8 +53,9 @@ export default function App() {
 
     onAuthChange((user) => {
       if (user) {
-        user.isAdmin = user.email === "alisherovagulnaz268@gmail.com";
+        user.isAdmin = user.email === "goldmoon1090@gmail.com";
       }
+
       setUser(user);
     });
   }, []);
@@ -67,12 +68,12 @@ export default function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/delivery" element={<Delivery />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/about" element={<h1>About</h1>} />
+            <Route path="/contacts" element={<h1>Contacts</h1>} />
+            <Route path="/delivery" element={<h1>Delivery</h1>} />
             <Route path="/categories/:slug" element={<Category />} />
             <Route path="/products/:slug" element={<Product />} />
-            <Route path="/cart" element={<Cart />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/orders" element={<Orders />} />
 
@@ -83,3 +84,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
