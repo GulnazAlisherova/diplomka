@@ -17,6 +17,7 @@ export default function ProductList({ category }) {
         {product.name}
       </Link>
       <span>{product.price} som</span>
+      {/* <p> {product.temp}</p> */}
       <AddToCart product={product} />
     </div>
   ));
