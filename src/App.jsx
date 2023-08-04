@@ -26,7 +26,7 @@ export const AppContext = createContext({
 
   // контекст для корзины
   cart: {}, // содержимое корзинки
-  setCart: () => {}, // изменить содержимое корзики
+  setCart: () => { }, // изменить содержимое корзики
 
   user: null,
 });
