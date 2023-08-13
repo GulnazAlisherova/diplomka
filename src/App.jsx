@@ -10,7 +10,7 @@ import {
   onCategoriesLoad,
   onOrdersLoad,
   onProductsLoad,
-  ordersCollection,
+  ordersCollection, 
   productsCollection,
 } from "./firebase";
 import Product from "./pages/Product";
